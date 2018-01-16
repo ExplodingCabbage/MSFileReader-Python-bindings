@@ -202,17 +202,21 @@ class ThermoRawfile(object):
         self.source = None
 
         try:
-            log.debug("obj = CreateObject('MSFileReader.XRawfile')")
-            obj = CreateObject('MSFileReader.XRawfile')
+            log.debug("obj = CreateObject('MSFileReader.XRawfile.1')")
+            obj = CreateObject('MSFileReader.XRawfile.1')
         except Exception as exc:
-            log.debug(exc)
             try:
-                log.debug("obj = CreateObject('XRawfile.XRawfile')")
-                obj = CreateObject('XRawfile.XRawfile')
+                log.debug("obj = CreateObject('MSFileReader.XRawfile')")
+                obj = CreateObject('MSFileReader.XRawfile')
             except Exception as exc:
                 log.debug(exc)
-                sys.exit('Please install the appropriate Thermo MSFileReader version '
-                         'depending of your Python version (32bits or 64bits)')
+                try:
+                    log.debug("obj = CreateObject('XRawfile.XRawfile')")
+                    obj = CreateObject('XRawfile.XRawfile')
+                except Exception as exc:
+                    log.debug(exc)
+                    sys.exit('Please install the appropriate Thermo MSFileReader version '
+                             'depending of your Python version (32bits or 64bits)')
 
         self.source = obj
 
